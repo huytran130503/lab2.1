@@ -60,6 +60,24 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define LED_Pin GPIO_PIN_5
 #define LED_GPIO_Port GPIOA
+#define ENA_Pin GPIO_PIN_6
+#define ENA_GPIO_Port GPIOA
+#define ENB_Pin GPIO_PIN_7
+#define ENB_GPIO_Port GPIOA
+#define SEGA_Pin GPIO_PIN_0
+#define SEGA_GPIO_Port GPIOB
+#define SEGB_Pin GPIO_PIN_1
+#define SEGB_GPIO_Port GPIOB
+#define SEGC_Pin GPIO_PIN_2
+#define SEGC_GPIO_Port GPIOB
+#define SEGD_Pin GPIO_PIN_3
+#define SEGD_GPIO_Port GPIOB
+#define SEGE_Pin GPIO_PIN_4
+#define SEGE_GPIO_Port GPIOB
+#define SEGF_Pin GPIO_PIN_5
+#define SEGF_GPIO_Port GPIOB
+#define SEGG_Pin GPIO_PIN_6
+#define SEGG_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
