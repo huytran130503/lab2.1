@@ -96,6 +96,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   setTimer1(50);
+  setTimer2(50);
   int state = 0;
   while (1)
   {
@@ -115,6 +116,10 @@ int main(void)
 					break;
 			}
 		    setTimer1(50);
+	  }
+	  if (timer2_flag == 1){
+		 HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+		 setTimer2(50);
 	  }
     /* USER CODE END WHILE */
 
