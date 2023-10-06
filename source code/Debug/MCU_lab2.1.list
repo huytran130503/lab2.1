@@ -660,14 +660,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer1(50); //0
+  setTimer1(50); //led
  800059c:	2032      	movs	r0, #50	; 0x32
  800059e:	f000 f929 	bl	80007f4 <setTimer1>
-  setTimer2(50); //1
- 80005a2:	2032      	movs	r0, #50	; 0x32
+  setTimer2(25); //7seg
+ 80005a2:	2019      	movs	r0, #25
  80005a4:	f000 f93a 	bl	800081c <setTimer2>
-  setTimer3(50); //2
- 80005a8:	2032      	movs	r0, #50	; 0x32
+  setTimer3(100); //dot
+ 80005a8:	2064      	movs	r0, #100	; 0x64
  80005aa:	f000 f94b 	bl	8000844 <setTimer3>
   while (1)
   {
@@ -703,8 +703,8 @@ int main(void)
  80005e0:	dd01      	ble.n	80005e6 <main+0x7a>
  80005e2:	2300      	movs	r3, #0
  80005e4:	617b      	str	r3, [r7, #20]
-		  setTimer2(50);
- 80005e6:	2032      	movs	r0, #50	; 0x32
+		  setTimer2(25);
+ 80005e6:	2019      	movs	r0, #25
  80005e8:	f000 f918 	bl	800081c <setTimer2>
 	  }
 	  if(timer3_flag == 1){
@@ -716,8 +716,8 @@ int main(void)
  80005f4:	2110      	movs	r1, #16
  80005f6:	4806      	ldr	r0, [pc, #24]	; (8000610 <main+0xa4>)
  80005f8:	f000 fd58 	bl	80010ac <HAL_GPIO_TogglePin>
-		  setTimer3(50);
- 80005fc:	2032      	movs	r0, #50	; 0x32
+		  setTimer3(100);
+ 80005fc:	2064      	movs	r0, #100	; 0x64
  80005fe:	f000 f921 	bl	8000844 <setTimer3>
 	  if(timer1_flag == 1){
  8000602:	e7d4      	b.n	80005ae <main+0x42>
