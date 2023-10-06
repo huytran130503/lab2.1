@@ -49,8 +49,8 @@ TIM_HandleTypeDef htim2;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -95,31 +95,56 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  setTimer1(50);
-  setTimer2(50);
+  setTimer1(50); //0
+  setTimer2(50); //1
+  setTimer3(50); //2
   int state = 0;
   while (1)
   {
 	  if(timer1_flag == 1){
+		  HAL_GPIO_TogglePin(GPIOA, LED_Pin);
+		  setTimer1(100);
+	  }
+	  if(timer2_flag == 1){
 		  switch(state){
-				case 0:
+		  	  	case 0:
 					Display7Seg(1);
 					HAL_GPIO_WritePin(GPIOA, ENA_Pin, RESET);
 					HAL_GPIO_WritePin(GPIOA, ENB_Pin, SET);
+					HAL_GPIO_WritePin(GPIOA, ENC_Pin, SET);
+					HAL_GPIO_WritePin(GPIOA, END_Pin, SET);
 					state = 1;
 					break;
 				case 1:
 					Display7Seg(2);
-					HAL_GPIO_WritePin(GPIOA, ENB_Pin, RESET);
 					HAL_GPIO_WritePin(GPIOA, ENA_Pin, SET);
+					HAL_GPIO_WritePin(GPIOA, ENB_Pin, RESET);
+					HAL_GPIO_WritePin(GPIOA, ENC_Pin, SET);
+					HAL_GPIO_WritePin(GPIOA, END_Pin, SET);
+					state = 2;
+					break;
+				case 2:
+					Display7Seg(3);
+					HAL_GPIO_WritePin(GPIOA, ENA_Pin, SET);
+					HAL_GPIO_WritePin(GPIOA, ENB_Pin, SET);
+					HAL_GPIO_WritePin(GPIOA, ENC_Pin, RESET);
+					HAL_GPIO_WritePin(GPIOA, END_Pin, SET);
+					state = 3;
+					break;
+				case 3:
+					Display7Seg(0);
+					HAL_GPIO_WritePin(GPIOA, ENA_Pin, SET);
+					HAL_GPIO_WritePin(GPIOA, ENB_Pin, SET);
+					HAL_GPIO_WritePin(GPIOA, ENC_Pin, SET);
+					HAL_GPIO_WritePin(GPIOA, END_Pin, RESET);
 					state = 0;
 					break;
 			}
-		    setTimer1(50);
+		    setTimer2(50);
 	  }
-	  if (timer2_flag == 1){
-		 HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-		 setTimer2(50);
+	  if(timer3_flag == 1){
+		  HAL_GPIO_TogglePin(GPIOA, DOT_Pin);
+		  setTimer3(100);
 	  }
     /* USER CODE END WHILE */
 
@@ -222,14 +247,17 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_Pin|ENA_Pin|ENB_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, DOT_Pin|LED_Pin|ENA_Pin|ENB_Pin
+                          |ENC_Pin|END_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, SEGA_Pin|SEGB_Pin|SEGC_Pin|SEGD_Pin
                           |SEGE_Pin|SEGF_Pin|SEGG_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_Pin ENA_Pin ENB_Pin */
-  GPIO_InitStruct.Pin = LED_Pin|ENA_Pin|ENB_Pin;
+  /*Configure GPIO pins : DOT_Pin LED_Pin ENA_Pin ENB_Pin
+                           ENC_Pin END_Pin */
+  GPIO_InitStruct.Pin = DOT_Pin|LED_Pin|ENA_Pin|ENB_Pin
+                          |ENC_Pin|END_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
